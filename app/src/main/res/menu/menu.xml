@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_addContact" android:title="@string/menu_addContact"></item>
     <item android:id="@+id/menu_listContact" android:title="@string/menu_listContact"></item>
+    <item android:id="@+id/menu_addContact" android:title="@string/menu_addContact"></item>
 </menu>
