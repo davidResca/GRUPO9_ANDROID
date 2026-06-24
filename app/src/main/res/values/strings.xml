@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GRUPO9_ANDROID</string>
+    <string name="menu_listContact">Listar Contactos</string>
+    <string name="menu_addContact">Agregar contactos</string>
+</resources>
