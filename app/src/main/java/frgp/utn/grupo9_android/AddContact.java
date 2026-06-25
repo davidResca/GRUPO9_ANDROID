@@ -16,6 +16,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddContact extends AppCompatActivity {
 
     private EditText txtNombre, txtApellido, txtTelefono, txtEmail, txtFechaNac, txtDireccion;
@@ -86,8 +91,7 @@ public class AddContact extends AppCompatActivity {
         String fecha = txtFechaNac.getText().toString().trim();
 
 
-        // Si algún campo está vacío, marcamos el error y retornamos false
-
+        // Si algún campo está vacío, error y return false
         if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty() || fecha.isEmpty()) {
             if (nombre.isEmpty()) txtNombre.setError("Este campo es obligatorio");
             if (apellido.isEmpty()) txtApellido.setError("Este campo es obligatorio");
@@ -118,32 +122,56 @@ public class AddContact extends AppCompatActivity {
             esValido = false;
         }
 
-        // Fecha de nacimiento válida usando el formato DD/MM/YYYY
+        // Fecha Nac. valida con form DD/MM/YYYY
         if (!fecha.isEmpty() && !fecha.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\\d\\d$")) {
             txtFechaNac.setError("Formato válido: DD/MM/YYYY");
+            esValido = false;
+        } else if (!fecha.isEmpty() && esFechaFutura(fecha)) {
+            // Feche con form. correcto pero no puede ser futura
+            txtFechaNac.setError("La fecha no puede ser futura");
             esValido = false;
         }
 
         return esValido;
     }
 
-    public void eventoBoton(View view) {
-        String nombre = txtNombre.getText().toString();
-        String apellido = txtApellido.getText().toString();
-        String telefono = txtTelefono.getText().toString();
-        String email = txtEmail.getText().toString();
-        String direccion = txtDireccion.getText().toString();
-        String fechaNac = txtFechaNac.getText().toString();
-
-        if (validarFormatos()) {
-            Intent intent = new Intent(this, MasDatosContact.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("apellido", apellido);
-            intent.putExtra("telefono", telefono);
-            intent.putExtra("email", email);
-            intent.putExtra("direccion", direccion);
-            intent.putExtra("fechaNacimiento", fechaNac);
-            startActivity(intent);
+    private boolean esFechaFutura(String fecha) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        formato.setLenient(false);
+        try {
+            Date fechaNacimiento = formato.parse(fecha);
+            Date hoy = new Date();
+            return fechaNacimiento != null && fechaNacimiento.after(hoy);
+        } catch (ParseException e) {
+            // convierte String a un objeto Date.
+            // Si el string no respeta el patrón, tira ParseException.
+            return false;
         }
+    }
+
+    public void eventoBoton(View view) {
+        if (!validarFormatos()) {
+            return;
+        }
+
+        String nombre = txtNombre.getText().toString().trim();
+        String apellido = txtApellido.getText().toString().trim();
+        String telefono = txtTelefono.getText().toString().trim();
+        String email = txtEmail.getText().toString().trim();
+        String direccion = txtDireccion.getText().toString().trim();
+        String fechaNac = txtFechaNac.getText().toString().trim();
+        String tipoTelefono = spTelefono.getSelectedItem().toString();
+        String tipoEmail = spEmail.getSelectedItem().toString();
+
+        Intent intent = new Intent(this, MasDatosContact.class);
+        intent.putExtra("nombre", nombre);
+        intent.putExtra("apellido", apellido);
+        intent.putExtra("telefono", telefono);
+        intent.putExtra("tipoTelefono", tipoTelefono);
+        intent.putExtra("email", email);
+        intent.putExtra("tipoEmail", tipoEmail);
+        intent.putExtra("direccion", direccion);
+        intent.putExtra("fechaNacimiento", fechaNac);
+        startActivity(intent);
     }
 }
