@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class AddContact extends AppCompatActivity {
 
     private EditText txtNombre, txtApellido, txtTelefono, txtEmail, txtFechaNac;
+    private Spinner spTelefono, spEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,16 @@ public class AddContact extends AppCompatActivity {
         txtTelefono = findViewById(R.id.editTextTelefono);
         txtEmail = findViewById(R.id.editTextEmail);
         txtFechaNac = findViewById(R.id.editTextFechaNacimiento);
+
+        spTelefono = findViewById(R.id.spinnerTelefono);
+        spEmail = findViewById(R.id.spinnerEmail);
+
+        String[] opciones = {"Casa", "Trabajo", "Móvil"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spTelefono.setAdapter(adapter);
+        spEmail.setAdapter(adapter);
     }
 
 
@@ -47,12 +60,11 @@ public class AddContact extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        if(id == R.id.menu_listContact){
+        if (id == R.id.menu_listContact) {
             Intent intent = new Intent(this, ListContact.class);
             startActivity(intent);
             return true;
-        }
-        else if (id == R.id.menu_addContact){
+        } else if (id == R.id.menu_addContact) {
             Intent intent = new Intent(this, AddContact.class);
             startActivity(intent);
             return true;
@@ -61,7 +73,7 @@ public class AddContact extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-// Validaciones
+    // Validaciones
     public boolean validarFormatos() {
         boolean esValido = true;
 
@@ -71,6 +83,17 @@ public class AddContact extends AppCompatActivity {
         String email = txtEmail.getText().toString().trim();
         String fecha = txtFechaNac.getText().toString().trim();
 
+
+        // Si algún campo está vacío, marcamos el error y retornamos false
+
+        if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty() || fecha.isEmpty()) {
+            if (nombre.isEmpty()) txtNombre.setError("Este campo es obligatorio");
+            if (apellido.isEmpty()) txtApellido.setError("Este campo es obligatorio");
+            if (telefono.isEmpty()) txtTelefono.setError("Este campo es obligatorio");
+            if (email.isEmpty()) txtEmail.setError("Este campo es obligatorio");
+            if (fecha.isEmpty()) txtFechaNac.setError("Este campo es obligatorio");
+            esValido = false;
+        }
         // No ingresar numeros
         if (nombre.matches(".*\\d.*")) {
             txtNombre.setError("El nombre no puede contener números");
