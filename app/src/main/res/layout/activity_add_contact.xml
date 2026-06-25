@@ -24,7 +24,6 @@
         android:text="Este es un formulario destinado al registro de personas, sus datos personales e intereses." />
 
 
-
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -218,21 +217,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button android:id="@+id/btnContinuar"
+                <Button
+                    android:id="@+id/btnContinuar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="15dp"
                     android:backgroundTint="#D3D3D3"
-                    android:layout_gravity="start"
+                    android:onClick="eventoBoton"
                     android:text="CONTINUAR"
-                    android:textColor="#333333"/>
+                    android:textColor="#333333" />
 
 
             </TableRow>
 
         </TableLayout>
-
 
 
 </LinearLayout>

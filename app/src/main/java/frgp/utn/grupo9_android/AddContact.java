@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class AddContact extends AppCompatActivity {
 
-    private EditText txtNombre, txtApellido, txtTelefono, txtEmail, txtFechaNac;
+    private EditText txtNombre, txtApellido, txtTelefono, txtEmail, txtFechaNac, txtDireccion;
     private Spinner spTelefono, spEmail;
 
     @Override
@@ -36,6 +37,7 @@ public class AddContact extends AppCompatActivity {
         txtTelefono = findViewById(R.id.editTextTelefono);
         txtEmail = findViewById(R.id.editTextEmail);
         txtFechaNac = findViewById(R.id.editTextFechaNacimiento);
+        txtDireccion = findViewById(R.id.editTextDireccion);
 
         spTelefono = findViewById(R.id.spinnerTelefono);
         spEmail = findViewById(R.id.spinnerEmail);
@@ -123,5 +125,25 @@ public class AddContact extends AppCompatActivity {
         }
 
         return esValido;
+    }
+
+    public void eventoBoton(View view) {
+        String nombre = txtNombre.getText().toString();
+        String apellido = txtApellido.getText().toString();
+        String telefono = txtTelefono.getText().toString();
+        String email = txtEmail.getText().toString();
+        String direccion = txtDireccion.getText().toString();
+        String fechaNac = txtFechaNac.getText().toString();
+
+        if (validarFormatos()) {
+            Intent intent = new Intent(this, MasDatosContact.class);
+            intent.putExtra("nombre", nombre);
+            intent.putExtra("apellido", apellido);
+            intent.putExtra("telefono", telefono);
+            intent.putExtra("email", email);
+            intent.putExtra("direccion", direccion);
+            intent.putExtra("fechaNacimiento", fechaNac);
+            startActivity(intent);
+        }
     }
 }

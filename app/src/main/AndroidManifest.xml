@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
         <activity
+            android:name=".MasDatosContact"
+            android:exported="false" />
+        <activity
             android:name=".ListContact"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
@@ -21,12 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".AddContact"
             android:exported="false" />
-
-
     </application>
 
 </manifest>
