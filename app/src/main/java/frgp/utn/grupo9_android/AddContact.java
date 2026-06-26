@@ -89,15 +89,17 @@ public class AddContact extends AppCompatActivity {
         String telefono = txtTelefono.getText().toString().trim();
         String email = txtEmail.getText().toString().trim();
         String fecha = txtFechaNac.getText().toString().trim();
+        String direccion = txtDireccion.getText().toString().trim();
 
 
         // Si algún campo está vacío, error y return false
-        if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty() || fecha.isEmpty()) {
+        if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty() || fecha.isEmpty()|| direccion.isEmpty()) {
             if (nombre.isEmpty()) txtNombre.setError("Este campo es obligatorio");
             if (apellido.isEmpty()) txtApellido.setError("Este campo es obligatorio");
             if (telefono.isEmpty()) txtTelefono.setError("Este campo es obligatorio");
             if (email.isEmpty()) txtEmail.setError("Este campo es obligatorio");
             if (fecha.isEmpty()) txtFechaNac.setError("Este campo es obligatorio");
+            if (direccion.isEmpty()) txtDireccion.setError("Este campo es obligatorio");
             esValido = false;
         }
         // No ingresar numeros
