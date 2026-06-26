@@ -23,7 +23,9 @@
         android:layout_marginBottom="15dp"
         android:text="Este es un formulario destinado al registro de personas, sus datos personales e intereses." />
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -233,6 +235,6 @@
             </TableRow>
 
         </TableLayout>
-
+    </ScrollView>
 
 </LinearLayout>

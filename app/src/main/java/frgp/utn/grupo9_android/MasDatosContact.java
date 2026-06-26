@@ -1,7 +1,9 @@
 package frgp.utn.grupo9_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.CheckBox;
 import android.widget.Switch;
@@ -13,10 +15,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import Entidad.Contacto;
+import OpenHelper.ContactoOpenHelper;
+
 public class MasDatosContact extends AppCompatActivity {
     private RadioGroup rgEstudios;
     private CheckBox cbDeporte, cbMusica, cbArte, cbTecnologia;
     private Switch swRecibeInfo;
+
+    private ContactoOpenHelper bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,8 @@ public class MasDatosContact extends AppCompatActivity {
         cbArte = findViewById(R.id.cbArte);
         cbTecnologia = findViewById(R.id.cbTecnologia);
         swRecibeInfo = findViewById(R.id.swRecibeInfo);
+
+        bd = new ContactoOpenHelper(this, "BD_Contactos", null, 1);
     }
 
     public boolean validarFormulario() {
@@ -44,6 +53,11 @@ public class MasDatosContact extends AppCompatActivity {
 
         if (rgEstudios.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Seleccione un nivel de estudios", Toast.LENGTH_SHORT).show();
+            esValido = false;
+        }
+
+        if (!cbDeporte.isChecked() && !cbMusica.isChecked() && !cbArte.isChecked() && !cbTecnologia.isChecked()) {
+            Toast.makeText(this, "Seleccione al menos un interes", Toast.LENGTH_SHORT).show();
             esValido = false;
         }
 
@@ -55,7 +69,29 @@ public class MasDatosContact extends AppCompatActivity {
             return;
         }
 
-        // PARA HACER: armar y guardar el Contacto
+        Intent intent = getIntent();
+        String nombre = intent.getStringExtra("nombre");
+        String apellido = intent.getStringExtra("apellido");
+        String telefono = intent.getStringExtra("telefono");
+        String tipoTelefono = intent.getStringExtra("tipoTelefono");
+        String email = intent.getStringExtra("email");
+        String tipoEmail = intent.getStringExtra("tipoEmail");
+        String direccion = intent.getStringExtra("direccion");
+        String fechaNacimiento = intent.getStringExtra("fechaNacimiento");
+
+        RadioButton rbSeleccionado = findViewById(rgEstudios.getCheckedRadioButtonId());
+        String nivelEstudios = rbSeleccionado.getText().toString();
+
+        String intereses = "";
+        if (cbDeporte.isChecked()) intereses += "Deporte ";
+        if (cbMusica.isChecked()) intereses += "Musica ";
+        if (cbArte.isChecked()) intereses += "Arte ";
+        if (cbTecnologia.isChecked()) intereses += "Tecnologia ";
+
+        boolean recibeInfo = swRecibeInfo.isChecked();
+
+        Contacto c = new Contacto(nombre, apellido, telefono, tipoTelefono, email, tipoEmail, direccion, fechaNacimiento, nivelEstudios, recibeInfo, intereses);
+        bd.insertarContacto(c);
         Toast.makeText(this, "TODO OK", Toast.LENGTH_SHORT).show();
     }
 }
