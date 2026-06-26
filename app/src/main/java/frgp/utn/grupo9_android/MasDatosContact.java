@@ -2,6 +2,7 @@ package frgp.utn.grupo9_android;
 
 import android.os.Bundle;
 import android.widget.RadioGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,8 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MasDatosContact extends AppCompatActivity {
-
     private RadioGroup rgEstudios;
+    private CheckBox cbDeporte, cbMusica, cbArte, cbTecnologia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,11 @@ public class MasDatosContact extends AppCompatActivity {
             return insets;
         });
 
-    rgEstudios = findViewById(R.id.rgEstudios);
+        rgEstudios = findViewById(R.id.rgEstudios);
+
+        cbDeporte = findViewById(R.id.cbDeporte);
+        cbMusica = findViewById(R.id.cbMusica);
+        cbArte = findViewById(R.id.cbArte);
+        cbTecnologia = findViewById(R.id.cbTecnologia);
     }
 }
