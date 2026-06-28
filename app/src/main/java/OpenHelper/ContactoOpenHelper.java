@@ -66,7 +66,7 @@ public class ContactoOpenHelper extends SQLiteOpenHelper{
         Cursor mcursor = null;
 
 
-        mcursor = this.getReadableDatabase().query(ContactoCreacionTabla,
+        mcursor = this.getReadableDatabase().query(ContactoTabla,
                 new String[]{
                         ContactoColumnaID,
                         ContactoColumnaNombre,
