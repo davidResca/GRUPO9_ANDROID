@@ -61,4 +61,50 @@ public class ContactoOpenHelper extends SQLiteOpenHelper{
         valores.put(ContactoColumnaRecibeInfo, c.getRecibeInfo() ? 1 : 0);
         this.getWritableDatabase().insert(ContactoTabla, null, valores);
     }
+    public ArrayList<Contacto> getListadoContactos() {
+        ArrayList<Contacto> listaContacto = new ArrayList<Contacto>();
+        Cursor mcursor = null;
+
+
+        mcursor = this.getReadableDatabase().query(ContactoCreacionTabla,
+                new String[]{
+                        ContactoColumnaID,
+                        ContactoColumnaNombre,
+                        ContactoColumnaApellido,
+                        ContactoColumnaTelefono,
+                        ContactoColumnaTipoTelefono,
+                        ContactoColumnaEmail,
+                        ContactoColumnaTipoEmail,
+                        ContactoColumnaDireccion,
+                        ContactoColumnaFechaNacimiento,
+                        ContactoColumnaNivelEstudios,
+                        ContactoColumnaIntereses,
+                        ContactoColumnaRecibeInfo
+                },
+                null, null, null, null, null);
+
+        if (mcursor.moveToFirst()) {
+            do {
+                Contacto c = new Contacto();
+                c.setId(mcursor.getInt(0));
+                c.setNombre(mcursor.getString(1));
+                c.setApellido(mcursor.getString(2));
+                c.setTelefono(mcursor.getString(3));
+                c.setTipoTelefono(mcursor.getString(4));
+                c.setEmail(mcursor.getString(5));
+                c.setTipoEmail(mcursor.getString(6));
+                c.setDireccion(mcursor.getString(7));
+                c.setFechaNacimiento(mcursor.getString(8));
+                c.setNivelEstudios(mcursor.getString(9));
+                c.setIntereses(mcursor.getString(10));
+                c.setRecibeInfo(mcursor.getInt(11) == 1);
+
+                listaContacto.add(c);
+            } while (mcursor.moveToNext());
+        }
+
+        mcursor.close();
+
+        return listaContacto;
+    }
 }
