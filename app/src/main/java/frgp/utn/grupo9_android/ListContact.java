@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -38,6 +40,23 @@ public class ListContact extends AppCompatActivity {
         listViewContactos = findViewById(R.id.listViewContactos);
         bd = new ContactoOpenHelper(this, "BD_Contactos", null, 1);
         cargarListview();
+
+        listViewContactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Contacto contactoSeleccionado = (Contacto) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(ListContact.this, DetalleContacto.class);
+
+                intent.putExtra("nombre", contactoSeleccionado.getNombre());
+                intent.putExtra("apellido", contactoSeleccionado.getApellido());
+                intent.putExtra("telefono", contactoSeleccionado.getTelefono());
+                intent.putExtra("email", contactoSeleccionado.getEmail());
+                intent.putExtra("direccion", contactoSeleccionado.getDireccion());
+
+                startActivity(intent);
+            }
+        });
     }
 
     public void cargarListview() {
