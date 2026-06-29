@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -12,7 +14,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
+import Entidad.Contacto;
+import OpenHelper.ContactoOpenHelper;
+
+
 public class ListContact extends AppCompatActivity {
+
+    private ListView listViewContactos;
+    private ContactoOpenHelper bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +35,14 @@ public class ListContact extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        listViewContactos = findViewById(R.id.listViewContactos);
+        bd = new ContactoOpenHelper(this, "BD_Contactos", null, 1);
+        cargarListview();
+    }
+
+    public void cargarListview() {
+        ArrayList<Contacto> listaContactos = bd.getListadoContactos();
+        listViewContactos.setAdapter(new ArrayAdapter<Contacto>(getApplicationContext(), android.R.layout.simple_list_item_1, listaContactos));
     }
 
     @Override
