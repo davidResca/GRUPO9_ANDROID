@@ -28,6 +28,12 @@ public class ListContact extends AppCompatActivity {
     private ContactoOpenHelper bd;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        cargarListview();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);

@@ -46,7 +46,7 @@ public class ContactoOpenHelper extends SQLiteOpenHelper{
     public void cerrar() { this.close(); }
 
 
-    public void insertarContacto(Contacto c) {
+    public boolean insertarContacto(Contacto c) {
         ContentValues valores = new ContentValues();
         valores.put(ContactoColumnaNombre, c.getNombre());
         valores.put(ContactoColumnaApellido, c.getApellido());
@@ -59,7 +59,8 @@ public class ContactoOpenHelper extends SQLiteOpenHelper{
         valores.put(ContactoColumnaNivelEstudios, c.getNivelEstudios());
         valores.put(ContactoColumnaIntereses, c.getIntereses());
         valores.put(ContactoColumnaRecibeInfo, c.getRecibeInfo() ? 1 : 0);
-        this.getWritableDatabase().insert(ContactoTabla, null, valores);
+        long id = this.getWritableDatabase().insert(ContactoTabla, null, valores);
+        return id != -1;
     }
     public ArrayList<Contacto> getListadoContactos() {
         ArrayList<Contacto> listaContacto = new ArrayList<Contacto>();

@@ -2,6 +2,8 @@ package frgp.utn.grupo9_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -10,6 +12,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -91,7 +94,16 @@ public class MasDatosContact extends AppCompatActivity {
         boolean recibeInfo = swRecibeInfo.isChecked();
 
         Contacto c = new Contacto(nombre, apellido, telefono, tipoTelefono, email, tipoEmail, direccion, fechaNacimiento, nivelEstudios, recibeInfo, intereses);
-        bd.insertarContacto(c);
-        Toast.makeText(this, "TODO OK", Toast.LENGTH_SHORT).show();
+        boolean guardado = bd.insertarContacto(c);
+
+        if (guardado) {
+            Toast.makeText(this, "Contacto guardado con éxito", Toast.LENGTH_SHORT).show();
+            Intent intentListado = new Intent(this, ListContact.class);
+            intentListado.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intentListado);
+            finish();
+        } else {
+            Toast.makeText(this, "Error al guardar el contacto", Toast.LENGTH_SHORT).show();
+        }
     }
 }
