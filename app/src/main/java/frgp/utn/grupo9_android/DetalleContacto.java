@@ -47,10 +47,11 @@ public class DetalleContacto extends AppCompatActivity {
         Intent intent = getIntent();
         txtDetalleNombre.setText(intent.getStringExtra("nombre"));
         txtDetalleApellido.setText(intent.getStringExtra("apellido"));
-        txtDetalleTelefono.setText(intent.getStringExtra("telefono"));
-        txtDetalleEmail.setText(intent.getStringExtra("email"));
+        String telefonoCompleto = intent.getStringExtra("telefono") + " (" + intent.getStringExtra("tipoTelefono") + ")";
+        txtDetalleTelefono.setText(telefonoCompleto);
+        String emailCompleto = intent.getStringExtra("email") + " (" + intent.getStringExtra("tipoEmail") + ")";
+        txtDetalleEmail.setText(emailCompleto);
         txtDetalleDireccion.setText(intent.getStringExtra("direccion"));
-
         txtDetalleFechaNacimiento.setText(intent.getStringExtra("fechaNacimiento"));
         txtDetalleEstudios.setText(intent.getStringExtra("nivelEstudios"));
         txtDetalleIntereses.setText(intent.getStringExtra("intereses"));
