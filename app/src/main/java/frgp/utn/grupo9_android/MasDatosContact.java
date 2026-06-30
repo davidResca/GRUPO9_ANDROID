@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -103,7 +104,14 @@ public class MasDatosContact extends AppCompatActivity {
             startActivity(intentListado);
             finish();
         } else {
-            Toast.makeText(this, "Error al guardar el contacto", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MasDatosContact.this);
+            builder.setTitle("Error al guardar");
+            builder.setMessage("Hubo un problema al intentar guardar el contacto en la base de datos. Por favor, intente nuevamente.");
+            builder.setPositiveButton("Aceptar", null);
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 }
