@@ -17,6 +17,8 @@ public class DetalleContacto extends AppCompatActivity {
 
     private TextView txtDetalleNombre, txtDetalleApellido, txtDetalleTelefono;
     private TextView txtDetalleEmail, txtDetalleDireccion;
+    private TextView txtDetalleFechaNacimiento, txtDetalleEstudios;
+    private TextView txtDetalleIntereses, txtDetalleRecibeInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,24 @@ public class DetalleContacto extends AppCompatActivity {
         txtDetalleEmail = findViewById(R.id.txtDetalleEmail);
         txtDetalleDireccion = findViewById(R.id.txtDetalleDireccion);
 
+        txtDetalleFechaNacimiento = findViewById(R.id.txtDetalleFechaNacimiento);
+        txtDetalleEstudios = findViewById(R.id.txtDetalleEstudios);
+        txtDetalleIntereses = findViewById(R.id.txtDetalleIntereses);
+        txtDetalleRecibeInfo = findViewById(R.id.txtDetalleRecibeInfo);
+
+
         Intent intent = getIntent();
         txtDetalleNombre.setText(intent.getStringExtra("nombre"));
         txtDetalleApellido.setText(intent.getStringExtra("apellido"));
         txtDetalleTelefono.setText(intent.getStringExtra("telefono"));
         txtDetalleEmail.setText(intent.getStringExtra("email"));
         txtDetalleDireccion.setText(intent.getStringExtra("direccion"));
+
+        txtDetalleFechaNacimiento.setText(intent.getStringExtra("fechaNacimiento"));
+        txtDetalleEstudios.setText(intent.getStringExtra("nivelEstudios"));
+        txtDetalleIntereses.setText(intent.getStringExtra("intereses"));
+        boolean recibeInfo = intent.getBooleanExtra("recibeInfo", false);
+        txtDetalleRecibeInfo.setText(recibeInfo ? "Sí" : "No");
     }
 
     @Override

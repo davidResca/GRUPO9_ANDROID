@@ -47,6 +47,7 @@ public class ListContact extends AppCompatActivity {
         bd = new ContactoOpenHelper(this, "BD_Contactos", null, 1);
         cargarListview();
 
+
         listViewContactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -54,11 +55,18 @@ public class ListContact extends AppCompatActivity {
 
                 Intent intent = new Intent(ListContact.this, DetalleContacto.class);
 
+
                 intent.putExtra("nombre", contactoSeleccionado.getNombre());
                 intent.putExtra("apellido", contactoSeleccionado.getApellido());
                 intent.putExtra("telefono", contactoSeleccionado.getTelefono());
+                intent.putExtra("tipoTelefono", contactoSeleccionado.getTipoTelefono());
                 intent.putExtra("email", contactoSeleccionado.getEmail());
+                intent.putExtra("tipoEmail", contactoSeleccionado.getTipoEmail());
                 intent.putExtra("direccion", contactoSeleccionado.getDireccion());
+                intent.putExtra("fechaNacimiento", contactoSeleccionado.getFechaNacimiento());
+                intent.putExtra("nivelEstudios", contactoSeleccionado.getNivelEstudios());
+                intent.putExtra("intereses", contactoSeleccionado.getIntereses());
+                intent.putExtra("recibeInfo", contactoSeleccionado.getRecibeInfo());
 
                 startActivity(intent);
             }
